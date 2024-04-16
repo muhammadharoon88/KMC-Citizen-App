@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kmcapp/res/color/appcolors.dart';
 import 'package:kmcapp/res/routes/routes.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -13,8 +14,8 @@ class KMCAPP extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor:
-          Colors.red, // Change this color to your desired status bar color
+      statusBarColor: AppColors
+          .greenDarkColor, // Change this color to your desired status bar color
     ));
 
     return GetMaterialApp(
