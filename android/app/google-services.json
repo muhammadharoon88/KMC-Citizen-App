@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "860595738600",
+    "project_id": "kmc-citizen-app",
+    "storage_bucket": "kmc-citizen-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860595738600:android:b388bf903f09e4e6f2765d",
+        "android_client_info": {
+          "package_name": "com.example.kmcapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIwjfIgN4GO24DG-m8krwLfgy-y22XCDg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
