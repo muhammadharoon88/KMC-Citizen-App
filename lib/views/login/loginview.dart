@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kmcapp/res/assets/images_assets.dart';
 import 'package:kmcapp/res/color/appcolors.dart';
-import 'package:kmcapp/view_model/services/RegisterViewDropDown.dart';
-import 'package:kmcapp/view_model/services/RegisterViewTextFieldService.dart';
 import 'package:get/get.dart';
+import 'package:kmcapp/view_model/services/register_view_textfield_service.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -48,7 +47,7 @@ class _LoginViewState extends State<LoginView> {
                       width: double.infinity,
                       height: 120,
                     ),
-                    Positioned(
+                    const Positioned(
                       top: 150,
                       child: Text(
                         "KARACHI METROPOLITAN CORPORATION",
@@ -103,14 +102,6 @@ class _LoginViewState extends State<LoginView> {
                                 children: [
                                   ElevatedButton(
                                     onPressed: () {},
-                                    child: Text(
-                                      "REGISTER",
-                                      style: TextStyle(
-                                        color: AppColors.whiteColor,
-                                        fontFamily: "FontMain",
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
                                     style: ButtonStyle(
                                       shape: MaterialStateProperty.all<
                                           RoundedRectangleBorder>(
@@ -121,7 +112,7 @@ class _LoginViewState extends State<LoginView> {
                                       ),
                                       minimumSize:
                                           MaterialStateProperty.all<Size>(
-                                        Size(double.infinity, 40),
+                                        const Size(double.infinity, 40),
                                       ),
                                       backgroundColor:
                                           MaterialStateProperty.all<Color>(
@@ -130,11 +121,7 @@ class _LoginViewState extends State<LoginView> {
                                       elevation:
                                           MaterialStateProperty.all<double>(4),
                                     ),
-                                  ),
-                                  SizedBox(width: 10),
-                                  ElevatedButton(
-                                    onPressed: () {},
-                                    child: Text(
+                                    child: const Text(
                                       "REGISTER",
                                       style: TextStyle(
                                         color: AppColors.whiteColor,
@@ -142,13 +129,26 @@ class _LoginViewState extends State<LoginView> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  ElevatedButton(
+                                    onPressed: () {},
                                     style: ElevatedButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(05),
                                       ),
-                                      minimumSize: Size(double.infinity, 40),
+                                      minimumSize:
+                                          const Size(double.infinity, 40),
                                       // primary: AppColors.greenDarkColor,
                                       elevation: 4,
+                                    ),
+                                    child: const Text(
+                                      "REGISTER",
+                                      style: TextStyle(
+                                        color: AppColors.whiteColor,
+                                        fontFamily: "FontMain",
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                 ],

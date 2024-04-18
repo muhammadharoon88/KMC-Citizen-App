@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:kmcapp/res/routes/routesname.dart';
 import 'package:kmcapp/views/login/loginview.dart';
-import 'package:kmcapp/views/register/RegisterView.dart';
+import 'package:kmcapp/views/register/register_view.dart';
 import 'package:kmcapp/views/splashscreen.dart';
 
 class AppRoutes {

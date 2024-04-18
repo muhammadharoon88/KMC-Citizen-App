@@ -9,19 +9,19 @@ class CustomTextField extends StatelessWidget {
   final TextInputType keyboardType;
 
   const CustomTextField({
-    Key? key,
+    super.key,
     required this.prefixIcon,
     required this.hintText,
     required this.controller,
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 44,
-      child: TextField(
+      child: TextFormField(
         controller: controller,
         obscureText: obscureText,
         keyboardType: keyboardType,
@@ -34,8 +34,8 @@ class CustomTextField extends StatelessWidget {
             prefixIcon,
             color: AppColors.whiteColor,
           ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: AppColors.blueColor),
+          focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: AppColors.blueColor),
           ),
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.blueColor),
@@ -43,7 +43,7 @@ class CustomTextField extends StatelessWidget {
           filled: true,
           fillColor: AppColors.greenColor,
           hintText: hintText,
-          contentPadding: EdgeInsets.symmetric(vertical: 10),
+          contentPadding: const EdgeInsets.symmetric(vertical: 10),
           hintStyle: const TextStyle(
             fontFamily: "FontMain",
             fontStyle: FontStyle.italic,

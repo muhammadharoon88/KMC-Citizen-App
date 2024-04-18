@@ -29,11 +29,11 @@ class _SplashscreenState extends State<Splashscreen> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Container(
-                child:
-                    Image(image: AssetImage(ImageAssets.splashScreenLogoImage)),
+                child: const Image(
+                    image: AssetImage(ImageAssets.splashScreenLogoImage)),
               ),
               Container(
-                child: Image(
+                child: const Image(
                     image: AssetImage(ImageAssets.splashScreenBottomImage)),
               ),
             ],
