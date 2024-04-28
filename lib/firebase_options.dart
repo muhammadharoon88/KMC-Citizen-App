@@ -49,6 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '860595738600',
     projectId: 'kmc-citizen-app',
     authDomain: 'kmc-citizen-app.firebaseapp.com',
+    databaseURL: 'https://kmc-citizen-app-default-rtdb.firebaseio.com',
     storageBucket: 'kmc-citizen-app.appspot.com',
     measurementId: 'G-VHB2HTLESH',
   );
@@ -58,6 +59,7 @@ class DefaultFirebaseOptions {
     appId: '1:860595738600:android:b388bf903f09e4e6f2765d',
     messagingSenderId: '860595738600',
     projectId: 'kmc-citizen-app',
+    databaseURL: 'https://kmc-citizen-app-default-rtdb.firebaseio.com',
     storageBucket: 'kmc-citizen-app.appspot.com',
   );
 
@@ -66,7 +68,10 @@ class DefaultFirebaseOptions {
     appId: '1:860595738600:ios:a0352fe7426a2c74f2765d',
     messagingSenderId: '860595738600',
     projectId: 'kmc-citizen-app',
+    databaseURL: 'https://kmc-citizen-app-default-rtdb.firebaseio.com',
     storageBucket: 'kmc-citizen-app.appspot.com',
+    androidClientId: '860595738600-lqhftnkrc2gouf73oak0m19lealau5ig.apps.googleusercontent.com',
+    iosClientId: '860595738600-5078e2ba454uamj9fp2jucduh6uv2cam.apps.googleusercontent.com',
     iosBundleId: 'com.example.kmcapp',
   );
 
@@ -75,7 +80,10 @@ class DefaultFirebaseOptions {
     appId: '1:860595738600:ios:3d077719cfb4e75bf2765d',
     messagingSenderId: '860595738600',
     projectId: 'kmc-citizen-app',
+    databaseURL: 'https://kmc-citizen-app-default-rtdb.firebaseio.com',
     storageBucket: 'kmc-citizen-app.appspot.com',
+    androidClientId: '860595738600-lqhftnkrc2gouf73oak0m19lealau5ig.apps.googleusercontent.com',
+    iosClientId: '860595738600-rselknuluhgt6aqk605q7kne098m27tc.apps.googleusercontent.com',
     iosBundleId: 'com.example.kmcapp.RunnerTests',
   );
 }

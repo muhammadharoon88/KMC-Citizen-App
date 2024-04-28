@@ -3,6 +3,7 @@ import 'package:kmcapp/res/color/appcolors.dart';
 import 'package:kmcapp/res/routes/routes.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:kmcapp/views/login/loginView.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -27,6 +28,7 @@ class KMCAPP extends StatelessWidget {
     return GetMaterialApp(
       getPages: AppRoutes.appRoutes(),
       debugShowCheckedModeBanner: false,
+      // home: LoginView(),
     );
   }
 }

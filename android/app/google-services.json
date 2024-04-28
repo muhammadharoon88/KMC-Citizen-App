@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "860595738600",
+    "firebase_url": "https://kmc-citizen-app-default-rtdb.firebaseio.com",
     "project_id": "kmc-citizen-app",
     "storage_bucket": "kmc-citizen-app.appspot.com"
   },
@@ -12,7 +13,20 @@
           "package_name": "com.example.kmcapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "860595738600-lqhftnkrc2gouf73oak0m19lealau5ig.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kmcapp",
+            "certificate_hash": "4f381ff7715a2a4c260459718f5cdf1d212a9409"
+          }
+        },
+        {
+          "client_id": "860595738600-qrpvpfi03jgu2ln8gsci84srmfho2u7g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAIwjfIgN4GO24DG-m8krwLfgy-y22XCDg"
@@ -20,7 +34,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "860595738600-qrpvpfi03jgu2ln8gsci84srmfho2u7g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "860595738600-5078e2ba454uamj9fp2jucduh6uv2cam.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.kmcapp"
+              }
+            }
+          ]
         }
       }
     }

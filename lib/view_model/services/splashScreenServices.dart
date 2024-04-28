@@ -5,7 +5,7 @@ import 'package:kmcapp/res/routes/routesname.dart';
 class SplashServices {
   void islogin() {
     Timer(const Duration(seconds: 3), () {
-      Get.toNamed(RouteName.registerView);
+      Get.toNamed(RouteName.loginView);
     });
   }
 }

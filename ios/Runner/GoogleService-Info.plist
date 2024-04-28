@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>860595738600-5078e2ba454uamj9fp2jucduh6uv2cam.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.860595738600-5078e2ba454uamj9fp2jucduh6uv2cam</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBzr2YiWfku_8KbK4kDx0Q_UYVyj_HyQ2Q</string>
 	<key>GCM_SENDER_ID</key>
@@ -26,5 +30,7 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:860595738600:ios:a0352fe7426a2c74f2765d</string>
+	<key>DATABASE_URL</key>
+	<string>https://kmc-citizen-app-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>

@@ -9,4 +9,6 @@ class AppColors {
   static const Color whiteColor = Colors.white;
   static const Color greyColor = Color.fromARGB(255, 206, 205, 205);
   static const Color blackColor = Colors.black;
+  static const Color facebookColor = Color.fromARGB(255, 3, 101, 248);
+  static const Color googleColor = Color.fromARGB(255, 216, 211, 211);
 }
