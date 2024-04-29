@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class ImageAssets {
   static const String splashScreenLogoImage = "assets/images/kmc.png";
   static const String splashScreenBottomImage = "assets/images/bottomwave.jpg";
