@@ -8,19 +8,35 @@ class CustomTextField extends StatelessWidget {
   final bool obscureText;
   final TextInputType keyboardType;
   final String Function(String?)? validator; // Custom validator function
+  final Color? fillColor;
 
-  const CustomTextField({
-    super.key,
+  CustomTextField({
+    Key? key,
     required this.prefixIcon,
     required this.hintText,
     required this.controller,
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
     this.validator,
-  });
+    required this.fillColor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // Debugging print statements
+    print('CustomTextField - hintText: $hintText, fillColor: $fillColor');
+
+    Color hintTextColor = fillColor == AppColors.greenColor
+        ? AppColors.whiteColor
+        : AppColors.greyDarksTextColor;
+    Color iconColor = fillColor == AppColors.greenColor
+        ? AppColors.whiteColor
+        : AppColors.greyDarksTextColor;
+
+    // Debugging print statements
+    print(
+        'CustomTextField - hintTextColor: $hintTextColor, iconColor: $iconColor');
+
     return SizedBox(
       height: 44,
       child: TextFormField(
@@ -29,11 +45,11 @@ class CustomTextField extends StatelessWidget {
         obscureText: obscureText,
         keyboardType: keyboardType,
         cursorColor: AppColors.redColor,
-        style: const TextStyle(color: AppColors.whiteColor),
+        style: TextStyle(color: hintTextColor),
         decoration: InputDecoration(
           prefixIcon: Icon(
             prefixIcon,
-            color: AppColors.whiteColor,
+            color: iconColor,
           ),
           focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.blueColor),
@@ -42,13 +58,13 @@ class CustomTextField extends StatelessWidget {
             borderSide: BorderSide(color: AppColors.blueColor),
           ),
           filled: true,
-          fillColor: AppColors.greenColor,
+          fillColor: fillColor,
           hintText: hintText,
           contentPadding: const EdgeInsets.symmetric(vertical: 10),
-          hintStyle: const TextStyle(
+          hintStyle: TextStyle(
             fontFamily: "FontMain",
             fontStyle: FontStyle.italic,
-            color: AppColors.whiteColor,
+            color: hintTextColor,
           ),
           border: const OutlineInputBorder(),
         ),
@@ -57,9 +73,12 @@ class CustomTextField extends StatelessWidget {
   }
 }
 
+
+
+// Colors manually enter karna ha..
+
 // import 'package:flutter/material.dart';
 // import 'package:kmcapp/res/color/appcolors.dart';
-// import 'package:get/get.dart';
 
 // class CustomTextField extends StatelessWidget {
 //   final IconData prefixIcon;
@@ -67,37 +86,49 @@ class CustomTextField extends StatelessWidget {
 //   final TextEditingController controller;
 //   final bool obscureText;
 //   final TextInputType keyboardType;
-//   final Function(String?)? onValidate; // Callback function to handle validation
+//   final String Function(String?)? validator; // Custom validator function
+//   final Color? iconColor;
+//   final Color? fillColor;
+//   final Color? hintTextColor;
 
-//   const CustomTextField({
+//   CustomTextField({
 //     Key? key,
 //     required this.prefixIcon,
 //     required this.hintText,
 //     required this.controller,
 //     this.obscureText = false,
 //     this.keyboardType = TextInputType.text,
-//     this.onValidate, // Initialize the callback function
+//     this.validator,
+//     this.iconColor,
+//     this.fillColor,
+//     this.hintTextColor,
 //   }) : super(key: key);
 
 //   @override
 //   Widget build(BuildContext context) {
+//     // Determine colors based on provided or default values
+//     Color finalHintTextColor = hintTextColor ??
+//         (fillColor == AppColors.greenColor
+//             ? AppColors.whiteColor
+//             : AppColors.greyDarksTextColor);
+//     Color finalIconColor = iconColor ??
+//         (fillColor == AppColors.greenColor
+//             ? AppColors.whiteColor
+//             : AppColors.greyDarksTextColor);
+
 //     return SizedBox(
 //       height: 44,
 //       child: TextFormField(
-//         validator: (value) {
-//           final errorMessage =
-//               onValidate?.call(value); // Call the callback function
-//           return errorMessage; // Return the validation message if any
-//         },
+//         validator: validator,
 //         controller: controller,
 //         obscureText: obscureText,
 //         keyboardType: keyboardType,
 //         cursorColor: AppColors.redColor,
-//         style: const TextStyle(color: AppColors.whiteColor),
+//         style: TextStyle(color: finalHintTextColor),
 //         decoration: InputDecoration(
 //           prefixIcon: Icon(
 //             prefixIcon,
-//             color: AppColors.whiteColor,
+//             color: finalIconColor,
 //           ),
 //           focusedBorder: const OutlineInputBorder(
 //             borderSide: BorderSide(color: AppColors.blueColor),
@@ -106,13 +137,13 @@ class CustomTextField extends StatelessWidget {
 //             borderSide: BorderSide(color: AppColors.blueColor),
 //           ),
 //           filled: true,
-//           fillColor: AppColors.greenColor,
+//           fillColor: fillColor,
 //           hintText: hintText,
 //           contentPadding: const EdgeInsets.symmetric(vertical: 10),
-//           hintStyle: const TextStyle(
+//           hintStyle: TextStyle(
 //             fontFamily: "FontMain",
 //             fontStyle: FontStyle.italic,
-//             color: AppColors.whiteColor,
+//             color: finalHintTextColor,
 //           ),
 //           border: const OutlineInputBorder(),
 //         ),
