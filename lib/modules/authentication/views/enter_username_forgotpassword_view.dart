@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -20,16 +21,32 @@ class EnterUsernameForgotPassword extends StatefulWidget {
 class _EnterUsernameForgotPasswordState
     extends State<EnterUsernameForgotPassword> {
   final emailController = TextEditingController();
-
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  // final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // Function to check if the email is registered with Firebase
   Future<bool> isEmailRegistered(String email) async {
     try {
-      await _auth.fetchSignInMethodsForEmail(email);
-      return true; // Email is registered
+      final firestore = FirebaseFirestore.instance;
+      final querySnapshot = await firestore
+          .collection('UserAccDetails')
+          .where('email', isEqualTo: email)
+          .get();
+
+      // print("Query snapshot docs length: ${querySnapshot.docs.length}");
+
+      return querySnapshot.docs.isNotEmpty;
     } catch (e) {
-      return false; // Email is not registered
+      // debugPrint("Error checking if email is registered: $e");
+      return false;
+    }
+  }
+
+  void checkUserAuthentication() {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      // print("User is signed in: ${user.email}");
+    } else {
+      // print("User is not signed in");
     }
   }
 
@@ -37,7 +54,6 @@ class _EnterUsernameForgotPasswordState
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // resizeToAvoidBottomInset: true,
         body: Center(
           child: SingleChildScrollView(
             child: Column(
@@ -64,10 +80,7 @@ class _EnterUsernameForgotPasswordState
                         gradient: const LinearGradient(
                           begin: Alignment.bottomCenter,
                           end: Alignment.topCenter,
-                          colors: [
-                            AppColors.greyColor,
-                            AppColors.whiteColor
-                          ], // Add your desired colors here
+                          colors: [AppColors.greyColor, AppColors.whiteColor],
                         ),
                         border: Border.all(color: AppColors.greyColor),
                         borderRadius: BorderRadius.circular(20.0)),
@@ -78,16 +91,12 @@ class _EnterUsernameForgotPasswordState
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
                             children: [
-                              const SizedBox(
-                                width: 10.0,
-                              ),
+                              const SizedBox(width: 10.0),
                               Image.asset(
                                 ImageAssets.keyIcon,
                                 height: 20,
                               ),
-                              const SizedBox(
-                                width: 10.0,
-                              ),
+                              const SizedBox(width: 10.0),
                               const Text(
                                 "FORGOT PASSWORD?",
                                 style: TextStyle(
@@ -109,9 +118,7 @@ class _EnterUsernameForgotPasswordState
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          width: 15.0,
-                        ),
+                        const SizedBox(width: 15.0),
                         const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 15.0),
                           child: Row(
@@ -130,7 +137,6 @@ class _EnterUsernameForgotPasswordState
                             ],
                           ),
                         ),
-
                         Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: Container(
@@ -145,19 +151,49 @@ class _EnterUsernameForgotPasswordState
                             ),
                           ),
                         ),
-
                         // Elevated button for Next
                         SizedBox(
                           height: 50,
                           width: MediaQuery.of(context).size.width * 0.8,
                           child: ElevatedButton(
                             onPressed: () async {
+                              final email = emailController.text.trim();
                               bool isValidEmail =
                                   RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                                      .hasMatch(emailController.text);
+                                      .hasMatch(email);
 
+                              // Check if the email is empty
+                              if (email.isEmpty) {
+                                Fluttertoast.showToast(
+                                  msg: "Please enter Username",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 2,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0,
+                                );
+                                return;
+                              }
+
+                              // Check if the email format is valid
+                              if (!isValidEmail) {
+                                Fluttertoast.showToast(
+                                  msg: "Invalid email format",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 2,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0,
+                                );
+                                return;
+                              }
+
+                              checkUserAuthentication();
+
+                              // Show loading dialog
                               showDialog(
-                                // ignore: use_build_context_synchronously
                                 context: context,
                                 barrierDismissible:
                                     false, // Dialog cannot be dismissed by tapping outside
@@ -180,55 +216,53 @@ class _EnterUsernameForgotPasswordState
                                 },
                               );
 
-                              await Future.delayed(const Duration(
-                                  seconds: 2)); // Simulate some delay
+                              // Check if the email is registered
+                              bool isRegistered =
+                                  await isEmailRegistered(email);
 
-                              if (emailController.text.isEmpty) {
-                                // ignore: use_build_context_synchronously
-                                Navigator.pop(context);
+                              // Close the loading dialog
+                              // ignore: use_build_context_synchronously
+                              Navigator.pop(context);
 
+                              if (!isRegistered) {
                                 Fluttertoast.showToast(
-                                    msg: "Please enter Usernane",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.BOTTOM,
-                                    timeInSecForIosWeb: 2,
-                                    backgroundColor: Colors.red,
-                                    textColor: Colors.white,
-                                    fontSize: 16.0);
-                              } else if (!isValidEmail) {
-                                Navigator.pop(context);
-                                Fluttertoast.showToast(
-                                    msg:
-                                        "Your account is disabled ! Please contact to Administrator",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.BOTTOM,
-                                    timeInSecForIosWeb: 2,
-                                    backgroundColor: Colors.red,
-                                    textColor: Colors.white,
-                                    fontSize: 16.0);
-                              } else {
-                                Navigator.pop(context);
-                                Get.toNamed(RouteName.selectSMSEMAILForOTPView);
-                                Fluttertoast.showToast(
-                                    msg: "Account verified",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.BOTTOM,
-                                    timeInSecForIosWeb: 2,
-                                    backgroundColor: AppColors.greenColor,
-                                    textColor: Colors.white,
-                                    fontSize: 16.0);
+                                  msg: "Email is not registered",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 2,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0,
+                                );
+                                return;
                               }
+
+                              // Navigate to the next screen
+                              Get.toNamed(RouteName.selectSMSEMAILForOTPView);
+
+                              // Show success toast
+                              Fluttertoast.showToast(
+                                msg: "Account verified",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 2,
+                                backgroundColor: AppColors.greenColor,
+                                textColor: Colors.white,
+                                fontSize: 16.0,
+                              );
                             },
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        AppColors.greyDarksTextColor)),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.greyDarksTextColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                            ),
                             child: const Text(
                               "NEXT",
                               style: TextStyle(color: AppColors.whiteColor),
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),

@@ -8,13 +8,13 @@ class CustomTextField extends StatefulWidget {
   final Color cursorColor;
 
   const CustomTextField({
-    Key? key,
+    super.key,
     required this.controller,
     this.hintText = '',
     required this.prefixIcon,
     required this.isSMS,
     required this.cursorColor,
-  }) : super(key: key);
+  });
 
   @override
   _CustomTextFieldState createState() => _CustomTextFieldState();
@@ -34,12 +34,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
           fontFamily: "FontMain",
           color: Colors.grey, // Change to your preferred color
         ),
-        focusedBorder: OutlineInputBorder(
+        focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(
             color: Colors.blue, // Change to your preferred color
           ),
         ),
-        enabledBorder: OutlineInputBorder(
+        enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(
             color: Colors.blue, // Change to your preferred color
           ),

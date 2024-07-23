@@ -2,13 +2,13 @@
 import 'package:get/get.dart';
 import 'package:kmcapp/home/homevIew.dart';
 import 'package:kmcapp/modules/authentication/viewModels/login_view_model.dart';
+import 'package:kmcapp/modules/authentication/views/enter_otp_view.dart';
+import 'package:kmcapp/modules/authentication/views/enter_username_forgotpassword_view.dart';
 import 'package:kmcapp/modules/authentication/views/login_view.dart';
 import 'package:kmcapp/modules/authentication/views/register_view.dart';
+import 'package:kmcapp/modules/authentication/views/reset_password_view.dart';
+import 'package:kmcapp/modules/authentication/views/select_sms_email_for_get_otp_view.dart';
 import 'package:kmcapp/res/routes/routesname.dart';
-import 'package:kmcapp/views/Forgot/enter_otp_view.dart';
-import 'package:kmcapp/views/Forgot/enter_username_forgotpasword_view.dart';
-import 'package:kmcapp/views/Forgot/reset_password_view.dart';
-import 'package:kmcapp/views/Forgot/select_sms_email_for_get_otp_view.dart';
 import 'package:kmcapp/views/splashscreen.dart';
 
 class AppRoutes {
@@ -43,7 +43,9 @@ class AppRoutes {
         ),
         GetPage(
           name: RouteName.enterOTPView,
-          page: () => const EnterOTPForResetPasswordView(),
+          page: () => EnterOTPForResetPasswordView(
+            verificationId: Get.arguments["verificationId"],
+          ),
           transition: Transition.leftToRightWithFade,
         ),
         GetPage(
