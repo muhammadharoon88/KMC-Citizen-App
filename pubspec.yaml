@@ -60,7 +60,7 @@ dev_dependencies:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/images/kmc_with_name.png"
+  image_path: "assets/images/KMC_App_Icon.png"
 
 
   # The "flutter_lints" package below contains a set of recommended lints to
