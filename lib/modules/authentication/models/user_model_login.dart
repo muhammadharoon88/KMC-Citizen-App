@@ -6,3 +6,10 @@ class UserModelLogin {
 
   // Optionally, add methods for JSON serialization/deserialization
 }
+
+class UserFullName {
+  String firstName;
+  String lastName;
+
+  UserFullName({required this.firstName, required this.lastName});
+}

@@ -60,19 +60,9 @@ class LoginViewModel extends GetxController {
 
       debugPrint('User ID: ${userCredential.user!.uid}');
       Get.back(); // Close the Dialoguw Box
+
       // Navigate to home view on successful login
       Get.offAllNamed(RouteName.homeView);
-
-      // Show success message
-      // Get.snackbar(
-      //   "Great",
-      //   'Login Successfully',
-      //   backgroundColor: AppColors.greenColor,
-      //   duration: const Duration(seconds: 2),
-      //   colorText: AppColors.whiteColor,
-      //   snackPosition: SnackPosition.BOTTOM,
-      //   borderRadius: 10,
-      // );
     } catch (e) {
       // Handle login failure
       debugPrint('Login error: $e');
@@ -115,6 +105,8 @@ class LoginViewModel extends GetxController {
         'Login Successful',
         'Welcome ${userCredential.user!.displayName}',
         backgroundColor: AppColors.greenColor,
+        colorText: AppColors.whiteColor,
+        snackPosition: SnackPosition.BOTTOM,
       );
     } catch (e) {
       // Handle login failure

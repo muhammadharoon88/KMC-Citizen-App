@@ -311,17 +311,17 @@ class _EnterOTPForResetPasswordViewState
                           ),
                         ),
                         const SizedBox(height: 5),
-                        TextButton(
-                          onPressed: _resendOTP,
-                          child: const Text(
-                            "RESEND CODE",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              color: AppColors
-                                  .greenColor, // Update with your color
-                            ),
-                          ),
-                        ),
+                        // TextButton(
+                        //   onPressed: _resendOTP,
+                        //   child: const Text(
+                        //     "RESEND CODE",
+                        //     style: TextStyle(
+                        //       fontWeight: FontWeight.w800,
+                        //       color: AppColors
+                        //           .greenColor, // Update with your color
+                        //     ),
+                        //   ),
+                        // ),
                         const SizedBox(height: 5),
                         SizedBox(
                           height: 50,

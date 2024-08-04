@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:kmcapp/modules/authentication/services/service_custom_textfield.dart';
@@ -21,7 +20,6 @@ class EnterUsernameForgotPassword extends StatefulWidget {
 class _EnterUsernameForgotPasswordState
     extends State<EnterUsernameForgotPassword> {
   final emailController = TextEditingController();
-  // final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // Function to check if the email is registered with Firebase
   Future<bool> isEmailRegistered(String email) async {
@@ -29,24 +27,13 @@ class _EnterUsernameForgotPasswordState
       final firestore = FirebaseFirestore.instance;
       final querySnapshot = await firestore
           .collection('UserAccDetails')
-          .where('email', isEqualTo: email)
+          .where('email', isEqualTo: email) // Check the entered email
           .get();
 
-      // print("Query snapshot docs length: ${querySnapshot.docs.length}");
-
-      return querySnapshot.docs.isNotEmpty;
+      return querySnapshot.docs.isNotEmpty; // Return true if email exists
     } catch (e) {
-      // debugPrint("Error checking if email is registered: $e");
-      return false;
-    }
-  }
-
-  void checkUserAuthentication() {
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      // print("User is signed in: ${user.email}");
-    } else {
-      // print("User is not signed in");
+      debugPrint("Error checking if email is registered: ${e.toString()}");
+      return false; // Return false on error
     }
   }
 
@@ -158,9 +145,6 @@ class _EnterUsernameForgotPasswordState
                           child: ElevatedButton(
                             onPressed: () async {
                               final email = emailController.text.trim();
-                              bool isValidEmail =
-                                  RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                                      .hasMatch(email);
 
                               // Check if the email is empty
                               if (email.isEmpty) {
@@ -175,22 +159,6 @@ class _EnterUsernameForgotPasswordState
                                 );
                                 return;
                               }
-
-                              // Check if the email format is valid
-                              if (!isValidEmail) {
-                                Fluttertoast.showToast(
-                                  msg: "Invalid email format",
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.BOTTOM,
-                                  timeInSecForIosWeb: 2,
-                                  backgroundColor: Colors.red,
-                                  textColor: Colors.white,
-                                  fontSize: 16.0,
-                                );
-                                return;
-                              }
-
-                              checkUserAuthentication();
 
                               // Show loading dialog
                               showDialog(

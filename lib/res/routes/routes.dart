@@ -1,6 +1,5 @@
 // ignore: depend_on_referenced_packages
 import 'package:get/get.dart';
-import 'package:kmcapp/home/homevIew.dart';
 import 'package:kmcapp/modules/authentication/viewModels/login_view_model.dart';
 import 'package:kmcapp/modules/authentication/views/enter_otp_view.dart';
 import 'package:kmcapp/modules/authentication/views/enter_username_forgotpassword_view.dart';
@@ -8,14 +7,17 @@ import 'package:kmcapp/modules/authentication/views/login_view.dart';
 import 'package:kmcapp/modules/authentication/views/register_view.dart';
 import 'package:kmcapp/modules/authentication/views/reset_password_view.dart';
 import 'package:kmcapp/modules/authentication/views/select_sms_email_for_get_otp_view.dart';
+import 'package:kmcapp/modules/home/views/faq_view.dart';
+import 'package:kmcapp/modules/home/views/home_view.dart';
+
 import 'package:kmcapp/res/routes/routesname.dart';
-import 'package:kmcapp/views/splashscreen.dart';
+import 'package:kmcapp/modules/authentication/views/splash_view.dart';
 
 class AppRoutes {
   static appRoutes() => [
         GetPage(
           name: RouteName.splashScreen,
-          page: () => const Splashscreen(),
+          page: () => const SplashView(),
           transition: Transition.leftToRightWithFade,
         ),
         GetPage(
@@ -55,7 +57,7 @@ class AppRoutes {
         ),
         GetPage(
           name: RouteName.homeView,
-          page: () => const HomeView(),
+          page: () => HomeView(),
           transition: Transition.leftToRightWithFade,
         ),
         GetPage(
@@ -65,8 +67,8 @@ class AppRoutes {
         ),
         GetPage(
           name: RouteName.frequentlyAskQuestView,
-          page: () => const ResetPasswordView(),
-          transition: Transition.leftToRightWithFade,
+          page: () => const FAQView(),
+          transition: Transition.downToUp,
         ),
         GetPage(
           name: RouteName.feedbackView,
