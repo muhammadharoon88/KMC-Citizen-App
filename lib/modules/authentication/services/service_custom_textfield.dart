@@ -10,8 +10,8 @@ class CustomTextField extends StatelessWidget {
   final String Function(String?)? validator; // Custom validator function
   final Color? fillColor;
 
-  CustomTextField({
-    Key? key,
+  const CustomTextField({
+    super.key,
     required this.prefixIcon,
     required this.hintText,
     required this.controller,
@@ -19,7 +19,7 @@ class CustomTextField extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.validator,
     required this.fillColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

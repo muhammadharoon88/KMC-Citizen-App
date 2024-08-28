@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 // ignore: depend_on_referenced_packages
 import 'package:get/get.dart';
+import 'package:kmcapp/modules/home/service/custom_app_bar.dart';
 import 'package:kmcapp/modules/home/service/my_drawer_header_service.dart';
 import 'package:kmcapp/modules/home/viewModels/home_view_model.dart';
 import 'package:kmcapp/res/assets/images_assets.dart';
@@ -41,36 +41,10 @@ class HomeView extends StatelessWidget {
           },
           child: const Icon(Icons.add),
         ),
-        appBar: AppBar(
-          iconTheme: const IconThemeData(color: Colors.white),
-          backgroundColor: Colors.grey,
-          title: const Text(
-            "Home",
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-          ),
-          systemOverlayStyle:
-              SystemUiOverlayStyle.light, // Ensure status bar icons are light
-          actions: [
-            badges.Badge(
-              badgeContent: Text(
-                counter.toString(),
-                style: const TextStyle(color: Colors.white),
-              ),
-              position: badges.BadgePosition.custom(
-                top: 0.01,
-              ),
-              showBadge: counter < 0 ? false : true,
-              child: IconButton(
-                onPressed: () {
-                  // Add your notification action here
-                },
-                icon: const Icon(
-                  Icons.notifications,
-                  color: Colors.white,
-                ),
-              ),
-            )
-          ],
+        appBar: CustomAppBar(
+          title: "Home",
+          onNotificationPressed: () {},
+          badgeCount: counter,
         ),
         drawer: Drawer(
           child: Builder(
@@ -123,7 +97,12 @@ class HomeView extends StatelessWidget {
                                         fontWeight: FontWeight.bold,
                                       ));
                                 }
-                                return const Text("N/A");
+                                return const Text(
+                                  "N/A",
+                                  style: TextStyle(
+                                    color: AppColors.whiteColor,
+                                  ),
+                                );
                               }),
                             ],
                           ),
@@ -247,7 +226,7 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  // Dummy data for grid items
+  // Data for grid items
   final List<String> homeViewCarts = [
     "KMC",
     "Connect With\nKMC",

@@ -3,7 +3,8 @@ class RouteName {
   static const String registerView = "/register_View";
   static const String loginView = "/login_View";
   static const String homeView = "/home_View";
-  static const String profileView = "/profile_View";
+  // static const String updateProfileView = "/update_Profile_View";
+  static const String updateProfileView = "/update_Profile_View";
   static const String frequentlyAskQuestView = "/frequently_Ask_Quest_View";
   static const String feedbackView = "/feedback_View";
   static const String logoutView = "/logout_View";

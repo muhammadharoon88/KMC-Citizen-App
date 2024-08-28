@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:kmcapp/modules/authentication/services/auth_services.dart';
 // ignore: depend_on_referenced_packages
 import 'package:get/get.dart';
@@ -26,7 +27,7 @@ class _MyDrawerHeaderState extends State<MyDrawerHeader> {
     _DrawerItem(
         icon: ImageAssets.profileIcon,
         title: "Profile",
-        route: RouteName.profileView),
+        route: RouteName.updateProfileView),
     _DrawerItem(
         icon: ImageAssets.fAQIcon,
         title: "Frequently Asked Ques.",
@@ -43,6 +44,9 @@ class _MyDrawerHeaderState extends State<MyDrawerHeader> {
 
   int _selectedIndex = -1;
   bool _isTapped = false;
+
+  final AuthService authService = AuthService();
+  final UserNameService _userNameService = UserNameService();
 
   void _handleTap(int index) {
     setState(() {
@@ -67,17 +71,6 @@ class _MyDrawerHeaderState extends State<MyDrawerHeader> {
     });
   }
 
-  String firstName = '';
-  String lastName = '';
-
-  @override
-  void initState() {
-    super.initState();
-    String uid = FirebaseAuth.instance.currentUser?.uid ?? "";
-    fetchAndDisplayUserName(uid);
-  }
-
-  final AuthService authService = AuthService();
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -102,25 +95,112 @@ class _MyDrawerHeaderState extends State<MyDrawerHeader> {
                 width: double.infinity,
                 padding: const EdgeInsets.only(top: 20),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    const SizedBox(
+                      height: 40,
+                    ),
                     Container(
-                      height: screenHeight * 0.15,
+                      padding: const EdgeInsets.all(4.0),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(
                           color: AppColors.whiteColor,
-                          width: 5,
-                        ),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                            ImageAssets.kmcLogoGrey,
-                          ),
-                          fit: BoxFit.contain,
+                          width: 2.0,
                         ),
                       ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(40),
+                        child: SizedBox(
+                            width: 80,
+                            height: 80,
+                            child: FutureBuilder(
+                              future: _userNameService.fetchUserName(),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const SpinKitFadingCircle(
+                                    color: AppColors.greenColor,
+                                    size: 30,
+                                  );
+                                } else if (snapshot.hasError) {
+                                  print(
+                                      "DRAWER PROFILE IMAGE KA ERROR ${snapshot.error}");
+                                  return Image.asset(
+                                    ImageAssets
+                                        .kmcLogoGrey, // Return a default image in case of error
+                                    fit: BoxFit.contain,
+                                  );
+                                } else if (snapshot.hasData) {
+                                  var userData = snapshot.data!;
+                                  return Image.network(
+                                    userData['profileImageUrl'],
+                                    fit: BoxFit.cover,
+                                  );
+                                } else {
+                                  return Image.asset(
+                                    ImageAssets.kmcLogoGrey,
+                                    fit: BoxFit.cover,
+                                  );
+                                }
+                              },
+                            )),
+                      ),
                     ),
-                    Text(""),
+                    const SizedBox(height: 15.0),
+                    FutureBuilder(
+                        future: _userNameService.fetchUserName(),
+                        builder: ((context, snapshot) {
+                          // if (snapshot.connectionState ==
+                          //     ConnectionState.waiting) {
+                          //   return CircularProgressIndicator();
+                          // } else
+                          if (snapshot.hasError) {
+                            return Text("Error: ${snapshot.error}");
+                          } else if (snapshot.hasData) {
+                            var userData = snapshot.data!;
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Welcome ${userData["firstName"]} ${userData["lastName"]} !",
+                                  style: const TextStyle(
+                                    color: AppColors.greenDarkColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: AppFonts.appFont,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            );
+                          } else {
+                            return const Center(
+                                child: Text(
+                              '',
+                              style: TextStyle(
+                                color: AppColors.greenDarkColor,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: AppFonts.appFont,
+                                fontSize: 16,
+                              ),
+                            ));
+                          }
+                        })),
+                    // Align(
+                    //   alignment: Alignment.centerLeft,
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.symmetric(horizontal: 15),
+                    //     child: Text(
+                    //       'Welcome  !',
+                    //       textAlign: TextAlign.left,
+                    //       style: const TextStyle(
+                    //         color: AppColors.whiteColor,
+                    //         fontSize: 16,
+                    //         fontFamily: AppFonts.appFont,
+                    //         fontWeight: FontWeight.bold,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -213,6 +293,8 @@ class _DrawerItem {
 
   _DrawerItem({required this.icon, required this.title, required this.route});
 }
+
+// Dialogue for Logout  Dialogue for Logout   Dialogue for Logout   Dialogue for Logout
 
 void _showLogoutDialog(AuthService authService) {
   Get.dialog<String>(
@@ -352,17 +434,32 @@ void _showLogoutDialog(AuthService authService) {
   );
 }
 
-Future<void> fetchAndDisplayUserName(String uid) async {
-  DocumentSnapshot userDoc =
-      await FirebaseFirestore.instance.collection('users').doc(uid).get();
+// Fuction to fetchUsername   Fuction to fetchUsername  Fuction to fetchUsername
+class UserNameService {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  if (userDoc.exists) {
-    String firstName = userDoc['firstName'] ?? '';
-    String lastName = userDoc['lastName'] ?? '';
+  // Fetch user data function
+  Future<Map<String, dynamic>?> fetchUserName() async {
+    try {
+      // Get the current user's UID
+      String uid = _auth.currentUser!.uid;
+      print('Fetched UID: $uid');
 
-    // User ka naam display karein
-    print('Hello, $firstName $lastName');
-  } else {
-    print('User not found.');
+      // Fetch user document from Firestore
+      DocumentSnapshot userDoc =
+          await _firestore.collection('UserAccDetails').doc(uid).get();
+
+      if (userDoc.exists) {
+        // Return the data from the document
+        return userDoc.data() as Map<String, dynamic>;
+      } else {
+        print('User document does not exist');
+        return null;
+      }
+    } catch (e) {
+      print('Error fetching user data: $e');
+      return null;
+    }
   }
 }

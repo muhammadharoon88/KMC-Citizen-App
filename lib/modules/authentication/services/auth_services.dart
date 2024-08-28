@@ -36,13 +36,15 @@ class AuthService {
       bool isGoogleSignedIn = await googleSignIn.isSignedIn();
 
       if (isGoogleSignedIn) {
+        print("USER GOOGLE SA LOGIN THA");
         // Sign out from Google account
+        await _auth.signOut();
         await googleSignIn.signOut();
         await googleSignIn.disconnect();
+      } else {
+        // Sign out from Firebase
+        await FirebaseAuth.instance.signOut();
       }
-
-      // Sign out from Firebase
-      await FirebaseAuth.instance.signOut();
 
       // Show logout success message
       Fluttertoast.showToast(msg: "Logout successful");

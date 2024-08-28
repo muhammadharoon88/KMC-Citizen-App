@@ -82,6 +82,23 @@ class LoginViewModel extends GetxController {
 
   // Method to handle Google sign-in
   void handleGoogleSignin() async {
+    Get.dialog(
+      const AlertDialog(
+        content: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text("Please Wait"),
+            SizedBox(height: 20),
+            SpinKitCircle(
+              color: AppColors.greenDarkColor,
+              size: 50,
+            ),
+          ],
+        ),
+      ),
+      barrierDismissible: false,
+    );
     try {
       isLoading.value = true; // Set loading state to true
 
@@ -96,6 +113,7 @@ class LoginViewModel extends GetxController {
 
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithCredential(credential);
+      Get.back(); // Close the Dialoguw Box
 
       // Navigate to home view on successful login
       Get.offAllNamed(RouteName.homeView);

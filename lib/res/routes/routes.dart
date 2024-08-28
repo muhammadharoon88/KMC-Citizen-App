@@ -9,6 +9,7 @@ import 'package:kmcapp/modules/authentication/views/reset_password_view.dart';
 import 'package:kmcapp/modules/authentication/views/select_sms_email_for_get_otp_view.dart';
 import 'package:kmcapp/modules/home/views/faq_view.dart';
 import 'package:kmcapp/modules/home/views/home_view.dart';
+import 'package:kmcapp/modules/home/views/update_profile_initial_view.dart';
 
 import 'package:kmcapp/res/routes/routesname.dart';
 import 'package:kmcapp/modules/authentication/views/splash_view.dart';
@@ -61,8 +62,13 @@ class AppRoutes {
           transition: Transition.leftToRightWithFade,
         ),
         GetPage(
-          name: RouteName.profileView,
-          page: () => const ResetPasswordView(),
+          name: RouteName.updateProfileView,
+          page: () {
+            final userId = Get.arguments as String?;
+            return UpdateProfileView(
+              userId: userId ?? "",
+            );
+          },
           transition: Transition.leftToRightWithFade,
         ),
         GetPage(
