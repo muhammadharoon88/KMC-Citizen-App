@@ -14,4 +14,21 @@ class RouteName {
       "/select_SMS_EMAIL_For_Get_Email_VIEW";
   static const String enterOTPView = "/enter_OTP_View";
   static const String resetPasswordView = "/reset_Password_View";
+
+  // Home Screen Modules k Rutes
+
+  static const String kMCView = "/kMC_View";
+  // Sub modules k route
+  static const String kMCAboutView = "/kMC_About_View";
+  static const String kMCHistoryView = "/kMC_History_View";
+  static const String kMCWebsiteView = "/kMC_Website_View";
+  static const String kMCNewsTodayView = "/kMC_News_Today_View";
+
+  // Connect  With KMC
+  static const String connectWithView = "/connect_With_View";
+  // Sub modules k route
+  static const String facebookView = "/facebook_View";
+  static const String instagramView = "/instagram_View";
+  static const String twitterView = "/twitter_View";
+  static const String writeFeedbackView = "/write_Feedback_View";
 }

@@ -50,4 +50,11 @@ class ImageAssets {
 
   // FAQ View Icons
   static const String questionMarkIcon = "assets/icons/question.png";
+
+  // KMC VIEW ICONS
+
+  static const String kmcAboutIcon = "assets/icons/kmc_About.png";
+  static const String kmcHistoryIcon = "assets/icons/kmc_History.png";
+  static const String kmcNewsTodayIcon = "assets/icons/kmc_News_Today.png";
+  static const String kmcWebsiteIcon = "assets/icons/kmc_Website.png";
 }

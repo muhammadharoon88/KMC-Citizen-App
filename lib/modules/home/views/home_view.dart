@@ -8,6 +8,7 @@ import 'package:kmcapp/modules/home/service/my_drawer_header_service.dart';
 import 'package:kmcapp/modules/home/viewModels/home_view_model.dart';
 import 'package:kmcapp/res/assets/images_assets.dart';
 import 'package:kmcapp/res/color/appcolors.dart';
+import 'package:kmcapp/res/routes/routesname.dart';
 import '../bindings/home_binding.dart';
 import '../providers/weather_provider.dart';
 
@@ -23,6 +24,7 @@ class HomeView extends StatelessWidget {
     HomeBinding().dependencies();
     // Ensure HomeBinding is used
 
+    // ignore: unused_local_variable
     final HomeViewModel viewModel = Get.find<HomeViewModel>();
     final WeatherProvider weatherProvider = Get.find<WeatherProvider>();
 
@@ -98,7 +100,7 @@ class HomeView extends StatelessWidget {
                                       ));
                                 }
                                 return const Text(
-                                  "N/A",
+                                  "",
                                   style: TextStyle(
                                     color: AppColors.whiteColor,
                                   ),
@@ -130,7 +132,7 @@ class HomeView extends StatelessWidget {
                                       ));
                                 }
                                 return const Text(
-                                  "N/A",
+                                  "",
                                   style: TextStyle(
                                     color: AppColors.whiteColor,
                                   ),
@@ -158,59 +160,79 @@ class HomeView extends StatelessWidget {
                       ),
                       itemCount: homeViewCarts.length,
                       itemBuilder: (context, index) {
-                        return Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.blue,
-                                width: 2.0,
-                              ),
-                              boxShadow: const [
-                                BoxShadow(
+                        return GestureDetector(
+                          onTap: () {
+                            switch (index) {
+                              case 0:
+                                Get.toNamed(RouteName.kMCView);
+                                break;
+
+                              case 1:
+                                Get.toNamed(RouteName.connectWithView);
+                                break;
+
+                              default:
+                                Get.snackbar(
+                                  "Error",
+                                  "Screen not implemented yet",
+                                  snackPosition: SnackPosition.BOTTOM,
+                                );
+                            }
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(
                                   color: Colors.blue,
-                                  blurRadius: 2.0,
-                                  offset: Offset(0, 0),
+                                  width: 2.0,
                                 ),
-                              ],
-                              color: AppColors.greenColorHomeScreen
-                              // color: const Color.fromARGB(255, 1, 123, 58),
-                              ),
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                // CircularProgressIndicator for icons
-                                FutureBuilder(
-                                  future: Future.delayed(
-                                      const Duration(seconds: 1)),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return const SpinKitFadingCircle(
-                                        color: AppColors.whiteColor,
-                                        size: 40,
-                                      );
-                                    } else {
-                                      return Image.asset(
-                                        homeViewIcons[index],
-                                        height: 40.0,
-                                        width: 40.0,
-                                      );
-                                    }
-                                  },
-                                ),
-                                const SizedBox(
-                                  height: 8,
-                                ),
-                                Text(
-                                  homeViewCarts[index],
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.blue,
+                                    blurRadius: 2.0,
+                                    offset: Offset(0, 0),
                                   ),
+                                ],
+                                color: AppColors.greenColorHomeScreen
+                                // color: const Color.fromARGB(255, 1, 123, 58),
                                 ),
-                              ],
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // CircularProgressIndicator for icons
+                                  FutureBuilder(
+                                    future: Future.delayed(
+                                        const Duration(seconds: 1)),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return const SpinKitFadingCircle(
+                                          color: AppColors.whiteColor,
+                                          size: 40,
+                                        );
+                                      } else {
+                                        return Image.asset(
+                                          homeViewIcons[index],
+                                          height: 40.0,
+                                          width: 40.0,
+                                        );
+                                      }
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
+                                  Text(
+                                    homeViewCarts[index],
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         );
